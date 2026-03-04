@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kirk Zane Fernando | Full Stack Developer</title>
+    <meta
+      name="description"
+      content="Kirk Zane Fernando is a backend-focused full stack developer intern based in Rizal, Philippines, building reliable API-driven systems and preparing for full-time software engineering roles in 2026."
+    />
+    <meta name="author" content="Kirk Zane Fernando" />
+    <meta
+      name="robots"
+      content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+    />
+    <meta name="theme-color" content="#2f5c7a" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="canonical" href="https://ecstazane.github.io/portfolio/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+    <meta property="og:locale" content="en_PH" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Kirk Zane Fernando | Full Stack Developer" />
+    <meta
+      property="og:description"
+      content="Backend-focused intern with hands-on OJT experience in API-connected systems, preparing for full-time software engineering roles in 2026."
+    />
+    <meta property="og:url" content="https://ecstazane.github.io/portfolio/" />
+    <meta property="og:site_name" content="Kirk Zane Fernando Portfolio" />
+    <meta property="og:image" content="https://ecstazane.github.io/portfolio/og-cover.svg" />
+    <meta
+      property="og:image:alt"
+      content="Portfolio preview card for Kirk Zane Fernando, backend-focused full stack developer."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kirk Zane Fernando | Full Stack Developer" />
+    <meta
+      name="twitter:description"
+      content="Backend-focused intern building reliable APIs and full stack features, open to entry-level roles after graduation."
+    />
+    <meta name="twitter:image" content="https://ecstazane.github.io/portfolio/og-cover.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Syne:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Kirk Zane Fernando",
+        "jobTitle": "Full Stack Developer",
+        "description": "Backend-focused full stack developer intern based in Rizal, Philippines.",
+        "email": "mailto:kirkzanemf@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Rizal",
+          "addressCountry": "PH"
+        },
+        "sameAs": [
+          "https://github.com/ecstazane",
+          "https://www.linkedin.com/in/kirk-zane-fernando-6613b6387/"
+        ],
+        "url": "https://ecstazane.github.io/portfolio/"
+      }
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <noscript>
+      <p class="noscript-banner">
+        JavaScript is disabled. You can still read this portfolio, but interactive features are unavailable.
+      </p>
+    </noscript>
+    <a class="skip-link" href="#mainContent">Skip to content</a>
+    <div id="scrollProgress" class="scroll-progress"></div>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div id="cursorGlow" class="cursor-glow" aria-hidden="true"></div>
+
+    <header class="site-header" id="top">
+      <a class="logo" href="#top" id="logoName">YOUR NAME</a>
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
+      <nav id="siteNav">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#terminalMode">Terminal</a>
+        <a href="#signals">Signals</a>
+        <a href="#journey">Journey</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button id="recruiterToggle" class="ghost-btn compact-btn" aria-pressed="false">
+          Recruiter Mode
+        </button>
+        <button id="themeToggle" class="ghost-btn compact-btn" aria-label="Toggle theme">Theme</button>
+        <button
+          id="commandOpen"
+          class="ghost-btn compact-btn command-trigger"
+          aria-label="Open command palette"
+        >
+          Cmd/Ctrl + K
+        </button>
+      </div>
+    </header>
+
+    <main id="mainContent">
+      <section class="hero reveal">
+        <p class="eyebrow" id="heroEyebrow">Portfolio</p>
+        <h1 id="heroName">Your Name</h1>
+        <p class="hero-role" id="heroRole">Frontend Developer</p>
+        <p class="hero-tagline" id="heroTagline">
+          I design and ship polished web experiences that feel fast, clear, and memorable.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="primary-btn">See Work</a>
+          <a href="#contact" class="ghost-btn">Contact Me</a>
+        </div>
+        <p class="shortcut-strip">
+          Shortcuts: <kbd>Ctrl/Cmd</kbd> + <kbd>K</kbd> commands, <kbd>Left</kbd>/<kbd>Right</kbd> project
+          preview, <kbd>Esc</kbd> close modal.
+        </p>
+        <div class="hero-live-strip">
+          <span class="status-pill" id="heroStatusPill">Internship in progress</span>
+          <span class="status-dot" aria-hidden="true"></span>
+          <span id="heroClock">--:-- --</span>
+        </div>
+        <ul class="hero-meta" id="heroMeta">
+          <li><span>Location</span><strong id="metaLocation">Your City</strong></li>
+          <li><span>Email</span><strong id="metaEmail">you@email.com</strong></li>
+          <li><span>Open to</span><strong id="metaOpenTo">Freelance & Full-time</strong></li>
+        </ul>
+      </section>
+
+      <section id="recruiterBrief" class="recruiter-brief reveal" hidden>
+        <h2 id="recruiterHeadline">1-Minute Recruiter View</h2>
+        <p id="recruiterSummary"></p>
+        <ul id="recruiterBullets" class="recruiter-bullets"></ul>
+        <div class="brief-actions">
+          <button id="briefPdfBtn" class="ghost-btn" type="button">Download Recruiter Brief (PDF)</button>
+        </div>
+      </section>
+
+      <section id="about" class="about reveal">
+        <div>
+          <h2>About</h2>
+          <p id="aboutText">
+            Add your background here. Talk about your strengths, what kind of products you enjoy
+            building, and the value you bring to teams.
+          </p>
+        </div>
+        <aside class="focus-card" data-tilt>
+          <h3>Current Focus</h3>
+          <ul id="focusList"></ul>
+        </aside>
+      </section>
+
+      <section id="education" class="education reveal">
+        <div class="section-head">
+          <h2>Education</h2>
+          <p>Current academic background and campus information.</p>
+        </div>
+        <article class="education-card" data-tilt>
+          <h3 id="educationSchool">STI College Ortigas-Cainta</h3>
+          <p id="educationDetail">
+            Rizal | Southern Luzon. Campus location: STI Academic Center, Ortigas Avenue Extension, Cainta,
+            Rizal.
+          </p>
+          <ul id="educationPoints" class="education-points"></ul>
+        </article>
+      </section>
+
+      <section id="terminalMode" class="terminal-mode reveal">
+        <div class="section-head">
+          <h2>Terminal Portfolio Mode</h2>
+          <p>Run commands to explore profile, projects, and recruiter actions.</p>
+        </div>
+        <article class="terminal-shell" data-tilt>
+          <div class="terminal-top">
+            <span></span>
+            <span></span>
+            <span></span>
+            <strong>kirk-portfolio-terminal</strong>
+          </div>
+          <div id="terminalOutput" class="terminal-output" aria-live="polite"></div>
+          <form id="terminalForm" class="terminal-form" autocomplete="off">
+            <span class="terminal-prefix">kirk@portfolio:~$</span>
+            <input
+              id="terminalInput"
+              class="terminal-input"
+              type="text"
+              spellcheck="false"
+              placeholder="type help"
+            />
+          </form>
+          <p class="terminal-hint">
+            Try: <code>help</code>, <code>about</code>, <code>education</code>, <code>skills</code>,
+            <code>projects</code>,
+            <code>contact</code>, <code>pdf</code>, <code>clear</code>
+          </p>
+        </article>
+      </section>
+
+      <section id="signals" class="signals reveal">
+        <div class="section-head">
+          <h2>Live Signals</h2>
+          <p>Real-time context for recruiters and collaborators.</p>
+        </div>
+        <div class="signal-grid">
+          <article class="signal-card" data-tilt>
+            <p class="eyebrow">Local Time</p>
+            <h3 id="signalClock">--:-- --</h3>
+            <p id="signalTimezone">Asia/Manila</p>
+          </article>
+          <article class="signal-card" data-tilt>
+            <p class="eyebrow">Current Status</p>
+            <h3 id="signalStatus">Internship in Progress</h3>
+            <p id="signalStatusDetail">Expected to finish in April 2026 (3rd week).</p>
+          </article>
+          <article class="signal-card" data-tilt>
+            <p class="eyebrow">OJT Window</p>
+            <h3 id="signalTimeline">Dec 2025 - Apr 2026</h3>
+            <p id="signalTimelineDetail">Gallium internship expected to finish in the 3rd week of April 2026.</p>
+          </article>
+          <article class="signal-card" data-tilt>
+            <p class="eyebrow">Graduation Target</p>
+            <h3 id="signalCountdown">2026</h3>
+            <p id="signalCountdownDetail">Preparing for full-time transition after graduation.</p>
+          </article>
+        </div>
+        <article class="availability-card" data-tilt>
+          <div>
+            <p class="eyebrow">Dynamic Availability Widget</p>
+            <h3 id="availabilityHeadline">Internship completes in -- days</h3>
+            <p id="availabilitySubline">Tracking internship and graduation milestones in real time.</p>
+          </div>
+          <div class="availability-metrics">
+            <div class="availability-stat">
+              <span>Internship End Countdown</span>
+              <strong id="internshipCountdownValue">--d --h --m</strong>
+              <div class="availability-bar"><span id="internshipProgressBar" style="width:0%"></span></div>
+            </div>
+            <div class="availability-stat">
+              <span>Graduation Countdown</span>
+              <strong id="graduationCountdownValue">--d</strong>
+              <div class="availability-bar"><span id="graduationProgressBar" style="width:0%"></span></div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section id="journey" class="journey reveal">
+        <div class="section-head">
+          <h2>Journey</h2>
+          <p>Choose a stage to view outcomes, lessons, and growth focus.</p>
+        </div>
+        <div class="journey-layout">
+          <div id="journeyTimeline" class="journey-timeline" role="tablist" aria-label="Journey timeline"></div>
+          <article id="journeyDetail" class="journey-detail" data-tilt></article>
+        </div>
+      </section>
+
+      <section id="skills" class="skills reveal">
+        <div class="section-head">
+          <h2>Skill Stack</h2>
+          <p>Tap each group to switch what is shown.</p>
+        </div>
+        <div class="stack-switch" id="stackSwitch"></div>
+        <div id="stackGrid" class="stack-grid"></div>
+        <article class="radar-shell" data-tilt>
+          <div class="radar-head">
+            <h3>Interactive Skill Radar</h3>
+            <p>Switch track profiles to compare capability emphasis.</p>
+          </div>
+          <div id="radarControls" class="radar-controls"></div>
+          <canvas
+            id="skillRadarCanvas"
+            class="skill-radar-canvas"
+            width="640"
+            height="380"
+            role="img"
+            aria-label="Interactive radar chart for backend, full stack, and workflow capabilities"
+          ></canvas>
+          <p id="radarSummary" class="radar-summary"></p>
+        </article>
+      </section>
+
+      <section id="projects" class="projects reveal">
+        <div class="section-head">
+          <h2>Projects</h2>
+          <p>Filter, search, and use arrow keys for quick preview.</p>
+        </div>
+        <div class="projects-tools">
+          <input
+            id="projectSearch"
+            class="project-search"
+            type="search"
+            placeholder="Search by title, tag, or keyword"
+          />
+          <button id="clearSearch" class="ghost-btn" type="button">Clear</button>
+        </div>
+        <div id="projectFilters" class="project-filters"></div>
+        <div class="project-layout">
+          <div id="projectGrid" class="project-grid"></div>
+          <article class="project-preview" id="projectPreview" data-tilt>
+            <p class="eyebrow">Preview</p>
+            <h3 id="previewTitle">Select a project</h3>
+            <p id="previewSummary">Project details show up here.</p>
+            <ul id="previewHighlights" class="preview-highlights"></ul>
+            <div class="preview-actions">
+              <a id="previewLink" class="inline-link" href="#" target="_blank" rel="noreferrer noopener">
+                Live Link
+              </a>
+              <button id="previewCaseBtn" type="button" class="inline-link preview-case-btn">
+                Open Case Study
+              </button>
+              <button id="previewAutoBtn" type="button" class="inline-link preview-auto-btn">
+                Auto Preview: On
+              </button>
+            </div>
+            <p class="preview-hint">Tip: press left/right arrow keys to browse filtered projects.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="caseStudies" class="case-studies reveal">
+        <div class="section-head">
+          <h2>Case Studies</h2>
+          <p>NDA-safe breakdowns of work approach and impact.</p>
+        </div>
+        <div id="caseStudyGrid" class="case-study-grid"></div>
+      </section>
+
+      <section id="contact" class="contact reveal">
+        <h2>Contact</h2>
+        <p id="contactPitch">
+          If you like this direction, send your details and I can personalize every section quickly.
+        </p>
+        <div class="contact-actions">
+          <a id="contactEmailLink" class="primary-btn" href="mailto:you@email.com">Email Me</a>
+          <button id="copyEmail" class="ghost-btn">Copy Email</button>
+          <button id="contactBriefPdfBtn" class="ghost-btn" type="button">Recruiter Brief PDF</button>
+        </div>
+        <div id="socialLinks" class="social-links"></div>
+      </section>
+    </main>
+
+    <aside id="quickDock" class="quick-dock" aria-label="Quick section navigation"></aside>
+    <button id="backToTop" class="back-top" type="button" aria-label="Back to top">Top</button>
+
+    <footer>
+      <p>
+        <span id="footerName">Your Name</span> | <span id="footerYear"></span>
+      </p>
+    </footer>
+
+    <div id="commandPalette" class="command-palette" hidden>
+      <button class="command-backdrop" data-command-close aria-label="Close command palette"></button>
+      <div class="command-panel" role="dialog" aria-modal="true" aria-labelledby="commandTitle">
+        <p class="eyebrow">Quick Actions</p>
+        <h3 id="commandTitle">Command Palette</h3>
+        <input
+          id="commandInput"
+          class="command-input"
+          type="text"
+          placeholder="Type a command..."
+          autocomplete="off"
+        />
+        <ul id="commandList" class="command-list" role="listbox" aria-label="Commands"></ul>
+      </div>
+    </div>
+
+    <div id="caseModal" class="case-modal" hidden>
+      <button class="case-backdrop" data-case-close aria-label="Close case study"></button>
+      <article class="case-panel" role="dialog" aria-modal="true" aria-labelledby="caseModalTitle">
+        <button id="caseModalClose" class="ghost-btn case-close-btn" type="button">Close</button>
+        <p class="eyebrow" id="caseModalType">Case Study</p>
+        <h3 id="caseModalTitle">Case Study Title</h3>
+        <p id="caseModalContext">Context</p>
+        <div class="case-summary-grid">
+          <article class="case-summary-card">
+            <h4>Problem</h4>
+            <p id="caseModalProblem"></p>
+          </article>
+          <article class="case-summary-card">
+            <h4>Task</h4>
+            <p id="caseModalTask"></p>
+          </article>
+          <article class="case-summary-card">
+            <h4>Result</h4>
+            <p id="caseModalResult"></p>
+          </article>
+        </div>
+        <div>
+          <h4>Implementation Steps</h4>
+          <div id="caseModalSteps" class="case-steps"></div>
+        </div>
+        <div>
+          <h4>Screens (NDA-safe)</h4>
+          <div id="caseModalScreens" class="case-screens"></div>
+        </div>
+      </article>
+    </div>
+
+    <div id="liveRegion" class="sr-only" aria-live="polite"></div>
+  </body>
+</html>
