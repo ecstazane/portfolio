@@ -346,6 +346,9 @@ const refs = {
   themeToggle: document.getElementById("themeToggle"),
   recruiterToggle: document.getElementById("recruiterToggle"),
   commandOpen: document.getElementById("commandOpen"),
+  mobileThemeToggle: document.getElementById("mobileThemeToggle"),
+  mobileRecruiterToggle: document.getElementById("mobileRecruiterToggle"),
+  mobileCommandOpen: document.getElementById("mobileCommandOpen"),
   menuToggle: document.querySelector(".menu-toggle"),
   siteHeader: document.querySelector(".site-header"),
   navLinks: [...document.querySelectorAll("#siteNav a")],
@@ -401,6 +404,14 @@ let terminalCommands = {};
 let commandCommands = [];
 let lastFocusedElement = null;
 let scrollSections = [];
+
+function closeMenu() {
+  if (!refs.siteHeader.classList.contains("menu-open")) {
+    return;
+  }
+  refs.siteHeader.classList.remove("menu-open");
+  refs.menuToggle.setAttribute("aria-expanded", "false");
+}
 
 function init() {
   refs.body.classList.toggle("reduced-data", reducedData);
@@ -1748,6 +1759,7 @@ function commandItem(label, hint, run, keywords = []) {
 
 function wireCommandPalette() {
   refs.commandOpen.addEventListener("click", openCommandPalette);
+  refs.mobileCommandOpen?.addEventListener("click", openCommandPalette);
 
   refs.commandCloseButtons.forEach((button) => {
     button.addEventListener("click", closeCommandPalette);
@@ -1827,6 +1839,7 @@ function openCommandPalette() {
     return;
   }
 
+  closeMenu();
   lastFocusedElement = document.activeElement;
   refs.commandPalette.hidden = false;
   state.commandOpen = true;
@@ -1913,14 +1926,24 @@ function wireRecruiterToggle() {
   refs.recruiterToggle.addEventListener("click", () => {
     toggleRecruiterMode(undefined, false);
   });
+
+  refs.mobileRecruiterToggle?.addEventListener("click", () => {
+    toggleRecruiterMode(undefined, false);
+  });
 }
 
 function toggleRecruiterMode(forceValue, silent = false) {
   state.recruiterMode = typeof forceValue === "boolean" ? forceValue : !state.recruiterMode;
   refs.body.classList.toggle("recruiter-mode", state.recruiterMode);
   refs.recruiterBrief.hidden = !state.recruiterMode;
-  refs.recruiterToggle.setAttribute("aria-pressed", String(state.recruiterMode));
-  refs.recruiterToggle.textContent = state.recruiterMode ? "Full Portfolio" : "Recruiter Mode";
+  const recruiterLabel = state.recruiterMode ? "Full Portfolio" : "Recruiter Mode";
+  [refs.recruiterToggle, refs.mobileRecruiterToggle].forEach((button) => {
+    if (!button) {
+      return;
+    }
+    button.setAttribute("aria-pressed", String(state.recruiterMode));
+    button.textContent = recruiterLabel;
+  });
 
   if (state.recruiterMode) {
     localStorage.setItem("portfolio-recruiter-mode", "on");
@@ -1947,7 +1970,7 @@ function restoreRecruiterPreference() {
 }
 
 function wireThemeToggle() {
-  refs.themeToggle.addEventListener("click", () => {
+  const onThemeToggle = () => {
     refs.body.dataset.theme = refs.body.dataset.theme === "night" ? "" : "night";
     if (refs.body.dataset.theme === "night") {
       localStorage.setItem("portfolio-theme", "night");
@@ -1955,7 +1978,10 @@ function wireThemeToggle() {
       localStorage.removeItem("portfolio-theme");
     }
     syncThemeButtonLabel();
-  });
+  };
+
+  refs.themeToggle.addEventListener("click", onThemeToggle);
+  refs.mobileThemeToggle?.addEventListener("click", onThemeToggle);
 }
 
 function restoreThemePreference() {
@@ -1967,7 +1993,12 @@ function restoreThemePreference() {
 }
 
 function syncThemeButtonLabel() {
-  refs.themeToggle.textContent = refs.body.dataset.theme === "night" ? "Light" : "Night";
+  const label = refs.body.dataset.theme === "night" ? "Light" : "Night";
+  [refs.themeToggle, refs.mobileThemeToggle].forEach((button) => {
+    if (button) {
+      button.textContent = label;
+    }
+  });
 }
 
 function wireCopyEmail() {
@@ -1998,9 +2029,24 @@ function wireMenuToggle() {
 
   refs.navLinks.forEach((link) => {
     link.addEventListener("click", () => {
-      refs.siteHeader.classList.remove("menu-open");
-      refs.menuToggle.setAttribute("aria-expanded", "false");
+      closeMenu();
     });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!refs.siteHeader.classList.contains("menu-open")) {
+      return;
+    }
+    if (refs.siteHeader.contains(event.target)) {
+      return;
+    }
+    closeMenu();
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 860) {
+      closeMenu();
+    }
   });
 }
 
