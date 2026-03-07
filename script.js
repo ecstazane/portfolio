@@ -374,11 +374,16 @@ const refs = {
   liveRegion: document.getElementById("liveRegion"),
 };
 
+const defaultProjectIndex = (() => {
+  const firstEmbeddedProjectIndex = portfolioData.projects.findIndex((project) => Boolean(project.embedUrl));
+  return firstEmbeddedProjectIndex >= 0 ? firstEmbeddedProjectIndex : 0;
+})();
+
 const state = {
   activeStack: Object.keys(portfolioData.stackGroups)[0],
   activeRadarGroup: Object.keys(portfolioData.skillRadar.profiles)[0],
   activeProjectCategory: "All",
-  activeProjectIndex: 0,
+  activeProjectIndex: defaultProjectIndex,
   projectSearchQuery: "",
   activeJourneyIndex: 0,
   activeRoleIndex: 0,
@@ -387,7 +392,7 @@ const state = {
   commandOpen: false,
   commandResults: [],
   recruiterMode: false,
-  projectAutoplayEnabled: true,
+  projectAutoplayEnabled: false,
   projectAutoplayPaused: false,
 };
 
