@@ -341,6 +341,18 @@
                 Auto Preview: On
               </button>
             </div>
+            <div id="previewEmbedWrap" class="preview-embed" hidden>
+              <iframe
+                id="previewEmbedFrame"
+                title="Project live preview"
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <p id="previewEmbedCaption" class="preview-embed-caption" hidden>
+              Live interactive preview. Use the controls inside the frame.
+            </p>
             <p class="preview-hint">Tip: press left/right arrow keys to browse filtered projects.</p>
           </article>
         </div>

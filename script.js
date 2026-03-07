@@ -12,7 +12,6 @@ const portfolioData = {
   email: "kirkzanemf@gmail.com",
   openTo: "Entry-level backend and full stack roles after graduation",
   timezone: "Asia/Manila",
-  timezoneLabel: "Rizal, Philippines (GMT+8)",
   availability: {
     status: "Internship in progress",
     statusDetail: "Expected to finish in April 2026 (3rd week).",
@@ -182,6 +181,21 @@ const portfolioData = {
       link: "https://assumpta-payroll.vercel.app",
       caseStudyId: "assumpta-employee-system",
     },
+    {
+      title: "zGarage Interactive Web Experience",
+      category: "Personal",
+      summary:
+        "A live interactive garage-themed web experience deployed on GitHub Pages for hands-on browsing.",
+      tags: ["JavaScript", "Interactive UI", "GitHub Pages", "Web Animation"],
+      highlights: [
+        "Built as a browser-first interactive experience with user-driven controls and dynamic visual states.",
+        "Published with zero-install access so reviewers can test it instantly from any device.",
+        "Embedded directly in this portfolio for in-page live interaction.",
+      ],
+      link: "https://ecstazane.github.io/zGarage/",
+      caseStudyId: "",
+      embedUrl: "https://ecstazane.github.io/zGarage/",
+    },
   ],
   caseStudies: [
     {
@@ -285,25 +299,9 @@ const refs = {
   heroName: document.getElementById("heroName"),
   heroRole: document.getElementById("heroRole"),
   heroTagline: document.getElementById("heroTagline"),
-  heroStatusPill: document.getElementById("heroStatusPill"),
-  heroClock: document.getElementById("heroClock"),
   metaLocation: document.getElementById("metaLocation"),
   metaEmail: document.getElementById("metaEmail"),
   metaOpenTo: document.getElementById("metaOpenTo"),
-  signalClock: document.getElementById("signalClock"),
-  signalTimezone: document.getElementById("signalTimezone"),
-  signalStatus: document.getElementById("signalStatus"),
-  signalStatusDetail: document.getElementById("signalStatusDetail"),
-  signalTimeline: document.getElementById("signalTimeline"),
-  signalTimelineDetail: document.getElementById("signalTimelineDetail"),
-  signalCountdown: document.getElementById("signalCountdown"),
-  signalCountdownDetail: document.getElementById("signalCountdownDetail"),
-  availabilityHeadline: document.getElementById("availabilityHeadline"),
-  availabilitySubline: document.getElementById("availabilitySubline"),
-  internshipCountdownValue: document.getElementById("internshipCountdownValue"),
-  internshipProgressBar: document.getElementById("internshipProgressBar"),
-  graduationCountdownValue: document.getElementById("graduationCountdownValue"),
-  graduationProgressBar: document.getElementById("graduationProgressBar"),
   recruiterBrief: document.getElementById("recruiterBrief"),
   recruiterHeadline: document.getElementById("recruiterHeadline"),
   recruiterSummary: document.getElementById("recruiterSummary"),
@@ -335,6 +333,9 @@ const refs = {
   previewLink: document.getElementById("previewLink"),
   previewCaseBtn: document.getElementById("previewCaseBtn"),
   previewAutoBtn: document.getElementById("previewAutoBtn"),
+  previewEmbedWrap: document.getElementById("previewEmbedWrap"),
+  previewEmbedFrame: document.getElementById("previewEmbedFrame"),
+  previewEmbedCaption: document.getElementById("previewEmbedCaption"),
   caseStudyGrid: document.getElementById("caseStudyGrid"),
   contactPitch: document.getElementById("contactPitch"),
   contactEmailLink: document.getElementById("contactEmailLink"),
@@ -395,8 +396,6 @@ const reducedData = window.matchMedia("(prefers-reduced-data: reduce)").matches;
 const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
 
 let roleRotationTimer;
-let liveSignalTimer;
-let countdownTimer;
 let projectAutoplayTimer;
 let radarFrame;
 let radarCurrentValues = [];
@@ -421,7 +420,6 @@ function init() {
 
   paintProfile();
   renderQuickDock();
-  initLiveSignals();
   renderJourney();
   renderStack();
   renderSkillRadar();
@@ -1031,127 +1029,6 @@ function setActiveQuickDock(sectionId) {
   });
 }
 
-function initLiveSignals() {
-  refs.heroStatusPill.textContent = portfolioData.availability.status;
-  refs.signalStatus.textContent = portfolioData.availability.status;
-  refs.signalStatusDetail.textContent = portfolioData.availability.statusDetail;
-  refs.signalTimeline.textContent = portfolioData.availability.ojtWindow;
-  refs.signalTimelineDetail.textContent = portfolioData.availability.ojtDetail;
-  refs.signalTimezone.textContent = portfolioData.timezoneLabel;
-
-  paintSignalClock();
-  paintGraduationCountdown();
-  paintAvailabilityWidget();
-
-  if (liveSignalTimer) {
-    clearInterval(liveSignalTimer);
-  }
-  liveSignalTimer = window.setInterval(paintSignalClock, 1000);
-
-  if (countdownTimer) {
-    clearInterval(countdownTimer);
-  }
-  countdownTimer = window.setInterval(() => {
-    paintGraduationCountdown();
-    paintAvailabilityWidget();
-  }, 1000);
-}
-
-function paintSignalClock() {
-  const now = new Date();
-  const time = new Intl.DateTimeFormat("en-PH", {
-    timeZone: portfolioData.timezone,
-    hour: "numeric",
-    minute: "2-digit",
-    second: reducedMotion ? undefined : "2-digit",
-    hour12: true,
-  }).format(now);
-
-  refs.signalClock.textContent = time;
-  refs.heroClock.textContent = `${time} GMT+8`;
-}
-
-function paintGraduationCountdown() {
-  const target = new Date(portfolioData.availability.graduationTargetDate);
-  if (Number.isNaN(target.getTime())) {
-    refs.signalCountdown.textContent = "2026";
-    refs.signalCountdownDetail.textContent = "Graduation target year.";
-    return;
-  }
-
-  const now = new Date();
-  const diff = target.getTime() - now.getTime();
-
-  if (diff <= 0) {
-    refs.signalCountdown.textContent = "2026";
-    refs.signalCountdownDetail.textContent = "Graduation target reached. Open for full-time roles.";
-    return;
-  }
-
-  const totalDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
-  const months = Math.floor(totalDays / 30.4);
-
-  if (months >= 1) {
-    refs.signalCountdown.textContent = `${months} month${months > 1 ? "s" : ""}`;
-    refs.signalCountdownDetail.textContent = "Estimated time left to graduation target.";
-    return;
-  }
-
-  refs.signalCountdown.textContent = `${totalDays} day${totalDays > 1 ? "s" : ""}`;
-  refs.signalCountdownDetail.textContent = "Final stretch before graduation target.";
-}
-
-function paintAvailabilityWidget() {
-  const now = new Date();
-  const internshipStart = new Date(portfolioData.availability.internshipStartDate);
-  const internshipEnd = new Date(portfolioData.availability.internshipEndDate);
-  const graduationTarget = new Date(portfolioData.availability.graduationTargetDate);
-
-  if (!Number.isNaN(internshipStart.getTime()) && !Number.isNaN(internshipEnd.getTime())) {
-    const internshipDiff = internshipEnd.getTime() - now.getTime();
-    const internshipTotal = internshipEnd.getTime() - internshipStart.getTime();
-    const internshipElapsed = now.getTime() - internshipStart.getTime();
-    const internshipProgress = internshipTotal > 0 ? (internshipElapsed / internshipTotal) * 100 : 0;
-    const safeProgress = Math.max(0, Math.min(100, internshipProgress));
-
-    refs.internshipProgressBar.style.width = `${safeProgress.toFixed(2)}%`;
-
-    if (internshipDiff <= 0) {
-      refs.availabilityHeadline.textContent = "Internship expected end reached";
-      refs.availabilitySubline.textContent =
-        "You are now in transition phase toward graduation and full-time opportunities.";
-      refs.internshipCountdownValue.textContent = "Completed";
-    } else {
-      const days = Math.floor(internshipDiff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((internshipDiff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((internshipDiff / (1000 * 60)) % 60);
-      refs.availabilityHeadline.textContent = `Internship expected to finish in ${days} day${
-        days !== 1 ? "s" : ""
-      }`;
-      refs.availabilitySubline.textContent =
-        "Target completion is the 3rd week of April 2026 while continuing backend-focused delivery.";
-      refs.internshipCountdownValue.textContent = `${days}d ${hours}h ${minutes}m`;
-    }
-  }
-
-  if (!Number.isNaN(graduationTarget.getTime()) && !Number.isNaN(internshipStart.getTime())) {
-    const graduationDiff = graduationTarget.getTime() - now.getTime();
-    const graduationWindow = graduationTarget.getTime() - internshipStart.getTime();
-    const graduationElapsed = now.getTime() - internshipStart.getTime();
-    const graduationProgress = graduationWindow > 0 ? (graduationElapsed / graduationWindow) * 100 : 0;
-    const safeProgress = Math.max(0, Math.min(100, graduationProgress));
-    refs.graduationProgressBar.style.width = `${safeProgress.toFixed(2)}%`;
-
-    if (graduationDiff <= 0) {
-      refs.graduationCountdownValue.textContent = "Milestone reached";
-    } else {
-      const days = Math.floor(graduationDiff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((graduationDiff / (1000 * 60 * 60)) % 24);
-      refs.graduationCountdownValue.textContent = `${days}d ${hours}h`;
-    }
-  }
-}
-
 function renderJourney() {
   refs.journeyTimeline.innerHTML = "";
 
@@ -1394,6 +1271,10 @@ function selectProject(index) {
     refs.previewLink.style.display = "none";
     refs.previewCaseBtn.style.display = "none";
     refs.previewCaseBtn.dataset.caseId = "";
+    refs.previewEmbedWrap.hidden = true;
+    refs.previewEmbedCaption.hidden = true;
+    refs.previewEmbedFrame.removeAttribute("src");
+    refs.previewEmbedFrame.title = "Project live preview";
     refs.previewAutoBtn.disabled = true;
     return;
   }
@@ -1422,6 +1303,18 @@ function selectProject(index) {
   } else {
     refs.previewCaseBtn.style.display = "none";
     refs.previewCaseBtn.dataset.caseId = "";
+  }
+
+  if (project.embedUrl) {
+    refs.previewEmbedFrame.src = project.embedUrl;
+    refs.previewEmbedFrame.title = `${project.title} live preview`;
+    refs.previewEmbedWrap.hidden = false;
+    refs.previewEmbedCaption.hidden = false;
+  } else {
+    refs.previewEmbedWrap.hidden = true;
+    refs.previewEmbedCaption.hidden = true;
+    refs.previewEmbedFrame.removeAttribute("src");
+    refs.previewEmbedFrame.title = "Project live preview";
   }
 
   const cards = [...document.querySelectorAll(".project-card")];
@@ -1686,7 +1579,6 @@ function setupCommands() {
       "terminal",
       "console",
     ]),
-    commandItem("Go to Signals", "Section", () => scrollToSection("signals"), ["signals", "status"]),
     commandItem("Go to Projects", "Section", () => scrollToSection("projects"), ["projects", "work"]),
     commandItem("Go to Contact", "Section", () => scrollToSection("contact"), ["contact", "email"]),
     commandItem("Toggle Recruiter Mode", "View", toggleRecruiterMode, ["recruiter", "brief"]),
