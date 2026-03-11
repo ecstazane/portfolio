@@ -55,9 +55,25 @@ export const portfolio = {
     "Improving full stack delivery by connecting clean frontends to stable backend services",
   ],
   stackGroups: {
-    Backend: ["Node.js", "Express.js", "NestJS", "REST API Design", "SQL Databases", "Error Handling"],
-    FullStack: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "API Integration"],
-    Workflow: ["Git & GitHub", "Postman", "Debugging", "Documentation", "Agile Collaboration", "Code Review"],
+    Backend: [
+      "Node.js",
+      "NestJS",
+      "REST API Design",
+      "Sequelize",
+      "MariaDB",
+      "SQL Databases",
+      "Error Handling",
+    ],
+    FullStack: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "MUI", "API Integration"],
+    Workflow: [
+      "Git & GitHub",
+      "Postman",
+      "Docker Compose",
+      "Debugging",
+      "Documentation",
+      "Agile Collaboration",
+      "Code Review",
+    ],
   },
   projects: [
     {
@@ -65,12 +81,12 @@ export const portfolio = {
       title: "Gallium31 HMM/Abiso Platform (OJT)",
       category: "Internship",
       summary:
-        "Contributing to an internal logistics platform spanning a React + MUI admin UI, a NestJS API with Sequelize + MariaDB, and an Nginx router orchestrated via Docker Compose.",
+        "Contributing to an internal logistics platform spanning a React + MUI admin UI, a NestJS API with Sequelize + MariaDB, and an Nginx router orchestrated via Docker Compose, with focus on reliable operator workflows and access safety.",
       tags: ["NestJS", "React", "MUI", "Sequelize", "MariaDB", "Nginx", "Docker Compose"],
       highlights: [
-        "Reworked search/sort/filter pipelines so pagination and row counts reflect filtered results across role-based dashboards.",
-        "Aligned company member management with soft-deleted profiles to keep active/inactive states consistent.",
-        "Hardened account lifecycle handling by cascading company removal to member profiles and user activation states (NDA-safe).",
+        "Reworked search/sort/filter pipelines so pagination, row counts, and empty states stay consistent across role-based dashboards.",
+        "Improved mobile responsiveness on admin surfaces and dialogs by tightening layout breakpoints and responsive typography.",
+        "Implemented a safer company removal flow that archives member profiles and deactivates users only when no active profiles remain (NDA-safe).",
       ],
     },
     {
@@ -105,7 +121,7 @@ export const portfolio = {
   caseStudies: [
     {
       id: "gallium-search-flow",
-      title: "Role-Based Search + Sorting Consistency",
+      title: "Role-Based Search & Pagination Reliability",
       type: "NDA-safe Case Study",
       context:
         "Internal logistics admin platform with a React + MUI frontend, NestJS API (Sequelize + MariaDB), and an Nginx router for UI/API paths and websocket traffic.",
@@ -125,6 +141,11 @@ export const portfolio = {
           title: "Standardize filter + sort checks",
           detail:
             "Applied consistent filter-state checks and sorting so view layers switch cleanly between default datasets and processed datasets.",
+        },
+        {
+          title: "Validate responsive layouts",
+          detail:
+            "Verified the same search + table behavior on mobile breakpoints to keep cards, tables, and dialogs consistent across screen sizes.",
         },
         {
           title: "Improve empty-state feedback",
@@ -150,7 +171,7 @@ export const portfolio = {
       task:
         "Implement a safe deactivation flow that archives member profiles and deactivates users only when no active profiles remain.",
       result:
-        "Delivered a predictable deactivation flow that keeps company membership and user access aligned after removals.",
+        "Delivered a predictable deactivation flow that keeps company membership and user access aligned after removals, reducing the chance of orphaned access.",
       steps: [
         {
           title: "Identify impacted profiles",
