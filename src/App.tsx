@@ -28,6 +28,9 @@ function App() {
   const [activeCategory, setActiveCategory] = useState("All")
   const [query, setQuery] = useState("")
   const [activeProjectId, setActiveProjectId] = useState(defaultProjectId)
+  const [caseStudyProjectId, setCaseStudyProjectId] = useState(
+    portfolio.caseStudies[0]?.projectId ?? "",
+  )
 
   const categories = useMemo(() => {
     return ["All", ...new Set(portfolio.projects.map((project) => project.category))]
@@ -54,6 +57,19 @@ function App() {
   const activeProject = visibleProjects.find((project) => project.id === activeProjectId)
   const displayProject = activeProject ?? visibleProjects[0]
   const displayProjectId = displayProject?.id
+  const caseStudyProjects = useMemo(() => {
+    const ids = new Set(portfolio.caseStudies.map((study) => study.projectId))
+    return portfolio.projects.filter((project) => ids.has(project.id))
+  }, [])
+  const caseStudyProject =
+    caseStudyProjects.find((project) => project.id === caseStudyProjectId) ?? caseStudyProjects[0]
+  const filteredCaseStudies = useMemo(() => {
+    const targetId = caseStudyProject?.id
+    if (!targetId) {
+      return []
+    }
+    return portfolio.caseStudies.filter((study) => study.projectId === targetId)
+  }, [caseStudyProject])
 
   return (
     <div className="min-h-screen bg-[radial-gradient(1100px_circle_at_10%_10%,rgba(13,148,136,0.18),transparent_55%),radial-gradient(900px_circle_at_90%_20%,rgba(245,158,11,0.12),transparent_50%),linear-gradient(180deg,#f8fafc_0%,#ffffff_45%,#f1f5f9_100%)] text-foreground">
@@ -237,7 +253,10 @@ function App() {
                     <button
                       key={project.id}
                       type="button"
-                      onClick={() => setActiveProjectId(project.id)}
+                      onClick={() => {
+                        setActiveProjectId(project.id)
+                        setCaseStudyProjectId(project.id)
+                      }}
                       className={`w-full rounded-xl border p-4 text-left transition ${
                         project.id === displayProjectId
                           ? "border-primary bg-primary/5 shadow-sm"
@@ -285,6 +304,9 @@ function App() {
                               </a>
                             </Button>
                           )}
+                          <Button asChild size="sm" variant="secondary">
+                            <a href="#case-studies">Case Studies</a>
+                          </Button>
                         </div>
                         {displayProject.embedUrl && (
                           <div className="space-y-2">
@@ -321,58 +343,77 @@ function App() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <h2 className="text-2xl font-semibold">Case Studies</h2>
-              <p className="text-sm text-muted-foreground">NDA-safe breakdowns of work approach and impact.</p>
+              <p className="text-sm text-muted-foreground">
+                {caseStudyProject ? `Selected: ${caseStudyProject.title}` : "Select a project to view case studies."}
+              </p>
             </div>
           </div>
           <Card className="mt-6 border-border/60 bg-white/90">
             <CardContent className="pt-6">
-              <Accordion type="single" collapsible className="w-full">
-                {portfolio.caseStudies.map((study) => (
-                  <AccordionItem key={study.id} value={study.id}>
-                    <AccordionTrigger className="text-left">
-                      <div>
-                        <p className="text-sm font-semibold text-foreground">{study.title}</p>
-                        <p className="text-xs text-muted-foreground">{study.type}</p>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <div className="space-y-4 text-sm text-muted-foreground">
-                        <p>{study.context}</p>
-                        <div>
-                          <p className="font-semibold text-foreground">Problem</p>
-                          <p>{study.problem}</p>
-                        </div>
-                        <div>
-                          <p className="font-semibold text-foreground">Task</p>
-                          <p>{study.task}</p>
-                        </div>
-                        <div>
-                          <p className="font-semibold text-foreground">Result</p>
-                          <p>{study.result}</p>
-                        </div>
-                        <div>
-                          <p className="font-semibold text-foreground">Implementation Steps</p>
-                          <ul className="mt-2 space-y-2">
-                            {study.steps.map((step) => (
-                              <li key={step.title}>
-                                <span className="font-medium text-foreground">{step.title}:</span> {step.detail}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div>
-                          <p className="font-semibold text-foreground">Screens (NDA-safe)</p>
-                          <ul className="mt-2 space-y-2">
-                            {study.screens.map((screen) => (
-                              <li key={screen}>• {screen}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
+              <Tabs value={caseStudyProject?.id} onValueChange={setCaseStudyProjectId}>
+                <TabsList className="flex flex-wrap justify-start">
+                  {caseStudyProjects.map((project) => (
+                    <TabsTrigger key={project.id} value={project.id}>
+                      {project.title}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </Tabs>
+              <div className="mt-6">
+                {filteredCaseStudies.length === 0 ? (
+                  <div className="rounded-lg border border-dashed border-border p-6 text-sm text-muted-foreground">
+                    No case studies available for this project yet.
+                  </div>
+                ) : (
+                  <Accordion type="single" collapsible className="w-full">
+                    {filteredCaseStudies.map((study) => (
+                      <AccordionItem key={study.id} value={study.id}>
+                        <AccordionTrigger className="text-left">
+                          <div>
+                            <p className="text-sm font-semibold text-foreground">{study.title}</p>
+                            <p className="text-xs text-muted-foreground">{study.type}</p>
+                          </div>
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          <div className="space-y-4 text-sm text-muted-foreground">
+                            <p>{study.context}</p>
+                            <div>
+                              <p className="font-semibold text-foreground">Problem</p>
+                              <p>{study.problem}</p>
+                            </div>
+                            <div>
+                              <p className="font-semibold text-foreground">Task</p>
+                              <p>{study.task}</p>
+                            </div>
+                            <div>
+                              <p className="font-semibold text-foreground">Result</p>
+                              <p>{study.result}</p>
+                            </div>
+                            <div>
+                              <p className="font-semibold text-foreground">Implementation Steps</p>
+                              <ul className="mt-2 space-y-2">
+                                {study.steps.map((step) => (
+                                  <li key={step.title}>
+                                    <span className="font-medium text-foreground">{step.title}:</span> {step.detail}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                            <div>
+                              <p className="font-semibold text-foreground">Screens (NDA-safe)</p>
+                              <ul className="mt-2 space-y-2">
+                                {study.screens.map((screen) => (
+                                  <li key={screen}>• {screen}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                )}
+              </div>
             </CardContent>
           </Card>
         </section>

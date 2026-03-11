@@ -11,6 +11,7 @@ export type Project = {
 
 export type CaseStudy = {
   id: string
+  projectId: string
   title: string
   type: string
   context: string
@@ -121,6 +122,7 @@ export const portfolio = {
   caseStudies: [
     {
       id: "gallium-search-flow",
+      projectId: "gallium",
       title: "Role-Based Search & Pagination Reliability",
       type: "NDA-safe Case Study",
       context:
@@ -162,6 +164,7 @@ export const portfolio = {
     },
     {
       id: "gallium-company-lifecycle",
+      projectId: "gallium",
       title: "Company Deactivation Safety",
       type: "NDA-safe Case Study",
       context:
@@ -198,6 +201,7 @@ export const portfolio = {
     },
     {
       id: "assumpta-employee-system",
+      projectId: "assumpta",
       title: "Clinic Employee Management Capstone",
       type: "Academic Case Study",
       context:
