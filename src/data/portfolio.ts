@@ -65,12 +65,12 @@ export const portfolio = {
       title: "Gallium31 HMM/Abiso Platform (OJT)",
       category: "Internship",
       summary:
-        "Contributing to an internal logistics platform spanning a React admin UI (MUI-based), a NestJS API with Sequelize + MariaDB, and an Nginx router orchestrated via Docker Compose.",
-      tags: ["NestJS", "React", "MUI", "Sequelize", "MariaDB", "Nginx", "Docker"],
+        "Contributing to an internal logistics platform spanning a React + MUI admin UI, a NestJS API with Sequelize + MariaDB, and an Nginx router orchestrated via Docker Compose.",
+      tags: ["NestJS", "React", "MUI", "Sequelize", "MariaDB", "Nginx", "Docker Compose"],
       highlights: [
-        "Improved search and table behavior across multiple admin and role-based screens in the React UI.",
-        "Standardized filter-state logic so empty results and data fallbacks are consistent across modules.",
-        "Supported API-connected flows and routing reliability across UI, API, and router services during OJT.",
+        "Reworked search/sort/filter pipelines so pagination and row counts reflect filtered results across role-based dashboards.",
+        "Aligned company member management with soft-deleted profiles to keep active/inactive states consistent.",
+        "Hardened account lifecycle handling by cascading company removal to member profiles and user activation states (NDA-safe).",
       ],
     },
     {
@@ -105,26 +105,26 @@ export const portfolio = {
   caseStudies: [
     {
       id: "gallium-search-flow",
-      title: "Role-Based Search Reliability Improvement",
+      title: "Role-Based Search + Sorting Consistency",
       type: "NDA-safe Case Study",
       context:
         "Internal logistics admin platform with a React + MUI frontend, NestJS API (Sequelize + MariaDB), and an Nginx router for UI/API paths and websocket traffic.",
       problem:
-        "Search and filter states behaved inconsistently across role-based screens, causing confusing empty results or fallback data.",
+        "Search, filter, and sort states behaved inconsistently across role-based screens, causing confusing empty results, mismatched pagination counts, or fallback data.",
       task:
-        "Align UI filter logic with API query results across role-based pages while preserving the existing UX and delivery timeline.",
+        "Align UI search/sort/filter logic across role-based pages while preserving the existing UX and delivery timeline.",
       result:
-        "Delivered consistent filter-state logic and clearer empty-state feedback, improving trust in filtered results and reducing operator confusion.",
+        "Delivered consistent search/sort behavior with accurate row counts and pagination, improving trust in filtered results and reducing operator confusion.",
       steps: [
         {
           title: "Audit existing search behavior",
           detail:
-            "Mapped where modules used conditional result selection and identified mismatches between filtered output and default data rendering.",
+            "Mapped where modules used conditional result selection and identified mismatches between filtered output, pagination, and default data rendering.",
         },
         {
-          title: "Standardize filter-state checks",
+          title: "Standardize filter + sort checks",
           detail:
-            "Applied a shared filter-state condition so view layers switch cleanly between default datasets and filtered datasets.",
+            "Applied consistent filter-state checks and sorting so view layers switch cleanly between default datasets and processed datasets.",
         },
         {
           title: "Improve empty-state feedback",
@@ -138,6 +138,42 @@ export const portfolio = {
         },
       ],
       screens: ["Search input and table state transition", "Role dashboard list view with filtered state", "No matching results feedback card"],
+    },
+    {
+      id: "gallium-company-lifecycle",
+      title: "Company Deactivation Safety",
+      type: "NDA-safe Case Study",
+      context:
+        "Admin tooling for managing company profiles and member access in a multi-tenant logistics platform.",
+      problem:
+        "Removing a company risked leaving member profiles and user access active, creating inconsistent access states.",
+      task:
+        "Implement a safe deactivation flow that archives member profiles and deactivates users only when no active profiles remain.",
+      result:
+        "Delivered a predictable deactivation flow that keeps company membership and user access aligned after removals.",
+      steps: [
+        {
+          title: "Identify impacted profiles",
+          detail:
+            "Queried company member profiles and tracked user IDs tied to the company being removed.",
+        },
+        {
+          title: "Archive member profiles",
+          detail:
+            "Soft-deleted member profiles to preserve history while removing active access.",
+        },
+        {
+          title: "Deactivate users without active profiles",
+          detail:
+            "Checked for remaining active profiles before disabling user access to avoid unintended lockouts.",
+        },
+        {
+          title: "Finalize removal",
+          detail:
+            "Completed the company removal after dependent profiles and access states were handled.",
+        },
+      ],
+      screens: ["Company member listing", "Archive status indicators", "Admin removal workflow"],
     },
     {
       id: "assumpta-employee-system",
