@@ -3,6 +3,8 @@ export type Project = {
   title: string
   category: string
   summary: string
+  role: string
+  focus: string
   tags: string[]
   highlights: string[]
   link?: string
@@ -13,6 +15,7 @@ export type CaseStudy = {
   id: string
   projectId: string
   title: string
+  summary: string
   type: string
   context: string
   problem: string
@@ -26,6 +29,8 @@ export const portfolio = {
   name: "Kirk Zane Fernando",
   eyebrow: "Portfolio 2026",
   roles: ["Full Stack Developer", "Backend-Focused Developer", "Software Engineering Intern"],
+  impactLine:
+    "Recent work: stabilized role-based search + pagination and introduced safer account deactivation flows.",
   tagline:
     "Backend-focused intern building reliable APIs and scalable systems while preparing for full-time software engineering roles after graduation.",
   location: "Rizal, Philippines",
@@ -83,6 +88,8 @@ export const portfolio = {
       category: "Internship",
       summary:
         "Contributing to an internal logistics platform spanning a React + MUI admin UI, a NestJS API with Sequelize + MariaDB, and an Nginx router orchestrated via Docker Compose, with focus on reliable operator workflows and access safety.",
+      role: "Backend + UI reliability",
+      focus: "Search/sort consistency, access safety, mobile responsiveness",
       tags: ["NestJS", "React", "MUI", "Sequelize", "MariaDB", "Nginx", "Docker Compose"],
       highlights: [
         "Reworked search/sort/filter pipelines so pagination, row counts, and empty states stay consistent across role-based dashboards.",
@@ -96,6 +103,8 @@ export const portfolio = {
       category: "Capstone",
       summary:
         "Built during 4th year as a capstone to automate attendance, payroll, payslips, and leave workflows for Assumpta Dog & Cat Clinic Cainta branch.",
+      role: "Full-stack capstone",
+      focus: "Attendance, payroll, leave workflows",
       tags: ["Payroll Automation", "Attendance QR", "Leave Management", "Vercel", "Render", "Neon"],
       highlights: [
         "Implemented admin/employee login with role-based access for HR and staff workflows.",
@@ -109,6 +118,8 @@ export const portfolio = {
       title: "zGarage Interactive Web Experience",
       category: "Personal",
       summary: "A live interactive garage-themed web experience deployed on GitHub Pages for hands-on browsing.",
+      role: "Frontend + interaction design",
+      focus: "Interactive UI, animation polish, embed readiness",
       tags: ["JavaScript", "Interactive UI", "GitHub Pages", "Web Animation"],
       highlights: [
         "Built as a browser-first interactive experience with user-driven controls and dynamic visual states.",
@@ -124,6 +135,7 @@ export const portfolio = {
       id: "gallium-search-flow",
       projectId: "gallium",
       title: "Role-Based Search & Pagination Reliability",
+      summary: "Unified search, sort, and pagination behavior across role dashboards.",
       type: "NDA-safe Case Study",
       context:
         "Internal logistics admin platform with a React + MUI frontend, NestJS API (Sequelize + MariaDB), and an Nginx router for UI/API paths and websocket traffic.",
@@ -166,6 +178,7 @@ export const portfolio = {
       id: "gallium-company-lifecycle",
       projectId: "gallium",
       title: "Company Deactivation Safety",
+      summary: "Prevented orphaned access by aligning profile archival with user deactivation.",
       type: "NDA-safe Case Study",
       context:
         "Admin tooling for managing company profiles and member access in a multi-tenant logistics platform.",
@@ -203,6 +216,7 @@ export const portfolio = {
       id: "assumpta-employee-system",
       projectId: "assumpta",
       title: "Clinic Employee Management Capstone",
+      summary: "Centralized attendance, payroll, and leave handling into one system.",
       type: "Academic Case Study",
       context:
         "4th-year capstone for Assumpta Dog & Cat Clinic Cainta branch, where payroll and employee records were previously managed manually in spreadsheets.",

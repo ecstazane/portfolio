@@ -104,6 +104,7 @@ function App() {
               Building reliable backend systems with a product-ready full stack edge.
             </h2>
             <p className="text-lg text-muted-foreground">{portfolio.tagline}</p>
+            <p className="text-sm text-slate-600">{portfolio.impactLine}</p>
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
               <span className="inline-flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
@@ -123,6 +124,14 @@ function App() {
                   View zGarage
                 </a>
               </Button>
+              <Button variant="secondary" asChild>
+                <a
+                  href={`mailto:${portfolio.email}?subject=Resume%20Request`}
+                  aria-label="Request resume via email"
+                >
+                  Request Resume
+                </a>
+              </Button>
             </div>
           </div>
           <Card className="border-border/60 bg-white/80">
@@ -130,18 +139,18 @@ function App() {
               <CardTitle>Live Signals</CardTitle>
               <CardDescription>High-level context for recruiters and collaborators.</CardDescription>
             </CardHeader>
-            <CardContent className="grid gap-4">
-              <div className="rounded-lg border border-border/60 bg-background p-4">
+            <CardContent className="grid gap-3 sm:grid-cols-2">
+              <div className="rounded-lg border border-border/60 bg-background p-3">
                 <p className="text-xs uppercase text-muted-foreground">Status</p>
                 <p className="mt-2 text-lg font-semibold">{portfolio.availability.status}</p>
                 <p className="text-sm text-muted-foreground">{portfolio.availability.statusDetail}</p>
               </div>
-              <div className="rounded-lg border border-border/60 bg-background p-4">
+              <div className="rounded-lg border border-border/60 bg-background p-3">
                 <p className="text-xs uppercase text-muted-foreground">OJT Window</p>
                 <p className="mt-2 text-lg font-semibold">{portfolio.availability.ojtWindow}</p>
                 <p className="text-sm text-muted-foreground">{portfolio.availability.ojtDetail}</p>
               </div>
-              <div className="rounded-lg border border-border/60 bg-background p-4">
+              <div className="rounded-lg border border-border/60 bg-background p-3 sm:col-span-2">
                 <p className="text-xs uppercase text-muted-foreground">Graduation Target</p>
                 <p className="mt-2 text-lg font-semibold">{portfolio.availability.graduationTarget}</p>
                 <p className="text-sm text-muted-foreground">Open to entry-level roles after graduation.</p>
@@ -266,7 +275,11 @@ function App() {
                       <div className="flex items-start justify-between gap-3">
                         <div>
                           <h3 className="text-base font-semibold text-foreground">{project.title}</h3>
-                          <p className="mt-2 text-sm text-muted-foreground">{project.summary}</p>
+                          <p className="mt-2 text-sm text-muted-foreground line-clamp-2">{project.summary}</p>
+                          <p className="mt-2 text-xs text-muted-foreground">
+                            <span className="font-medium text-foreground">Role:</span> {project.role} ·{" "}
+                            <span className="font-medium text-foreground">Focus:</span> {project.focus}
+                          </p>
                         </div>
                         <Badge variant="outline" className="shrink-0">
                           {project.category}
@@ -285,14 +298,18 @@ function App() {
                 <div className="space-y-4">
                   {displayProject ? (
                     <Card className="border-border/60 bg-background">
-                      <CardHeader>
-                        <CardTitle>{displayProject.title}</CardTitle>
-                        <CardDescription>{displayProject.summary}</CardDescription>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                          {displayProject.highlights.map((highlight) => (
-                            <li key={highlight}>• {highlight}</li>
+                        <CardHeader>
+                          <CardTitle>{displayProject.title}</CardTitle>
+                          <CardDescription>{displayProject.summary}</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <p className="text-sm text-muted-foreground">
+                            <span className="font-medium text-foreground">Role:</span> {displayProject.role} ·{" "}
+                            <span className="font-medium text-foreground">Focus:</span> {displayProject.focus}
+                          </p>
+                          <ul className="space-y-2 text-sm text-muted-foreground">
+                            {displayProject.highlights.map((highlight) => (
+                              <li key={highlight}>• {highlight}</li>
                           ))}
                         </ul>
                         <div className="flex flex-wrap gap-2">
@@ -371,6 +388,7 @@ function App() {
                         <AccordionTrigger className="text-left">
                           <div>
                             <p className="text-sm font-semibold text-foreground">{study.title}</p>
+                            <p className="text-xs text-muted-foreground">{study.summary}</p>
                             <p className="text-xs text-muted-foreground">{study.type}</p>
                           </div>
                         </AccordionTrigger>
